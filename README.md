@@ -1,3 +1,10 @@
+# Update
+- Added empty smart contract
+- figured out, that fake api server is needed.
+- created connection to localhost server to retrieve metadata
+--> next step:
+    - input forms to add addtional data to the metadata
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

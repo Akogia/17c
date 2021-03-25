@@ -38,34 +38,31 @@ class UserX extends Component {
     this.setState({counter})
     this.setState({setShow:true})
     this.setState({show:false})
-
-
   }
 
 
   render() {
+    //let ticket
+    //if(this.state.counter ===0){
+    //  ticket = <p>claim your ticket</p>
+    //} else {
+    //  while(this.state.counter <=10){
+    //  
+    //    let counter = this.state.counter
+    //    const oneTicket = <div><Ticket/></div>
+    //    ticket = counter*oneTicket
+    //  }
+    //}
+
     let ticket
     if(this.state.counter ===0){
-      ticket = <p>claim your ticket</p>
-    } else {
-      while(this.state.counter <=10){
-      
-        let counter = this.state.counter
-        const oneTicket = <div><Ticket/></div>
-        ticket = counter*oneTicket
-      }
+      ticket=  <p>claim your ticket</p>
+      console.log("ticket gleich null")
+    } else if (this.state.counter ===1) {
+      ticket = <div><Ticket/></div>
+    }else if (this.state.counter ===2) {
+      ticket = <div><div><Ticket/></div><br/><div><Ticket/></div></div>
     }
-
-
-    //if(this.state.counter ===0){
-    //  ticket=  <p>claim your ticket</p>
-    //  console.log("ticket gleich null")
-    //} else if (this.state.counter ===1) {
-    //  ticket = <div><Ticket/></div>
-    //}else if (this.state.counter ===2) {
-    //  ticket = <div><Ticket/><div><Ticket/></div></div>
-//
-    //}
 
     return (
       <div className="Btnabstand">
@@ -98,6 +95,7 @@ class UserX extends Component {
       </Button>
       </Modal.Footer>
       </Modal>
+      <br/>
       {ticket}
     </div>
     )

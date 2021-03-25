@@ -1,21 +1,58 @@
 import './App.css';
-import React, {Component} from 'react'
+import React, {Component } from 'react'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserX from './UserX';
 import Artist from './Artist';
+import api from './api/metadata.js'
 
 class App extends Component {
 
+  async componentWillMount() {
+    await this.loadMetadata()
+  }
 
 
   constructor(props){
     super(props);
     this.state = {
       tabulator: true,
+      metadata: null,
     };
   }
+
+  //retrieveApi(async()=>{
+  //  const response = await api.get("/metadata")
+  //  return response.data
+  //});
+  //async retrieveApi(){
+   // const response = await api.get("/metadata")
+   // console.log(response)
+   // return response.data
+ // }
+
+
+
+  //useEffect=  () => {
+  //  const getMetaData = async()=>{
+  //    const allData= await api.get("/metadata")
+  //    console.log(allData);
+  //  }
+  //  getMetaData()
+  //}
+    async loadMetadata(){
+      const response = await api.get("/nonfungibletoken")
+      this.setState({metadata:response})
+      console.log(this.state.metadata)
+    }
+
+    //<div>
+    //{response.map(name => <div>{name}</div>)}
+    //</div>
+
+
+
 
   render() {
     let content
@@ -27,6 +64,10 @@ class App extends Component {
     else {
       content=<Artist/>
     }
+
+
+
+
 
     return(
     <div className="App">
@@ -45,9 +86,11 @@ class App extends Component {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+      <br/>
       <div className="App-body">
         {content}
       </div>
+      
     </div>
     );
     }

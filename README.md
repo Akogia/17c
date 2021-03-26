@@ -1,9 +1,18 @@
-# Update
+# Update #2
+- installed uuidv4 for creatig uuids
+- installed react datepicker
+- added inputs for metadata
+
+# Update #1
 - Added empty smart contract
 - figured out, that fake api server is needed.
 - created connection to localhost server to retrieve metadata
 --> next step:
     - input forms to add addtional data to the metadata
+
+# show results
+
+to view the app on your computer you need to install all dependencies listed in package.json file. Then start the app wiht "npm start"
 
 # Getting Started with Create React App
 

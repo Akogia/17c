@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import UserX from './UserX';
 import Artist from './Artist';
 import api from './api/metadata.js'
+import {uuid} from 'uuidv4'
 
 class App extends Component {
 
@@ -51,6 +52,8 @@ class App extends Component {
     //{response.map(name => <div>{name}</div>)}
     //</div>
 
+    
+
 
 
 
@@ -90,7 +93,7 @@ class App extends Component {
       <div className="App-body">
         {content}
       </div>
-      
+
     </div>
     );
     }

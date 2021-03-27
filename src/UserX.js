@@ -1,10 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import "react-datepicker/dist/react-datepicker.css"
+import 'react-datepicker/dist/react-datepicker.css'
 import React, {Component} from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import Ticket from './Ticket'
+import Uuid from 'react-uuid'
 import DatePicker from 'react-datepicker'
 
 
@@ -17,27 +18,40 @@ class UserX extends Component {
       setShow: false,
       counter:0,
       ticket: null,
-      nftType:'',
-      eventName:'',
-      artist:'',
-      selectedDate: new Date(),
+      nftType: 'ticket',
+      metadata:{
+        id: null,
+        name: '',
+        URL:'',
+        attribute:{
+          ticket:true,
+          video:false,
+          eventdate: new Date(),
+          artist:[]
+        }
+      }
+
     };
   }
 
   handleDate = (event) => {
-    this.setState({selectedDate:event})
-    console.log(this.state.selectedDate)
+    this.setState({eventdate:event})
+    console.log(this.state.eventdate)
   }
 
   handleEvent = (e) => {
-    this.setState({eventName:e.target.value})
-    console.log(this.state.eventName)
+    this.setState({metadata:{name:e.target.value}})
+    console.log(this.state.name)
   }
 
-  //handleArtist = (e) => {
-  //  this.setState({setShow:true})
-  //  this.setState({show:true})
-  //}
+  handleArtist = (e) => {
+    let str = e.target.value
+    console.log(str)
+    let artistArray = str.split(', ')
+    console.log(artistArray)
+    //this.setState({artist:[...this.state.artist, artistArray]})
+    this.setState({artist:artistArray})
+  }
 
   handleShow = () => {
     this.setState({setShow:true})
@@ -60,6 +74,42 @@ class UserX extends Component {
     //return (<div><div><Ticket/></div><br/></div>)
   }
 
+  selectedOption = (e) => {
+    this.setState({nftType: e.target.value})
+    console.log(this.state.nftType)
+    if(e.target.value ==='ticket'){
+      this.setState({ticket:true})
+      this.setState({video:false})
+    }else{
+      this.setState({ticket:false})
+      this.setState({video:true})
+    }
+  }
+
+  handlePost= ()=>{
+    let number = Uuid()
+    console.log(number)
+    this.setState({id: number})
+    console.log(this.state.id)
+    console.log(this.state.eventdate)
+    console.log(this.state.artist)
+    console.log(this.state.name)
+    console.log(this.state.nftType)
+    console.log(this.state.video)
+    console.log(this.state.ticket)
+    console.log(this.state.metadata)
+    //const response = await api.put("/nonfungibletoken")
+    //this.sendMetadata(this.state.metadataNFT)
+  }
+
+  //async sendMetadata(metadataNFT){
+  //  const response = await api.post("/nonfungibletoken/${metadataNFT.id}", metadataNFT)
+  //  console.log(this.state.metadata)
+  //  console.log(response)
+  //}
+
+
+
 
   render() {
     //let ticket
@@ -73,8 +123,7 @@ class UserX extends Component {
     //    ticket = counter*oneTicket
     //  }
     //}
-    console.log(this.state.nftType)
-    console.log(this.state.eventName)
+
     let ticket
     if(this.state.counter ===0){
       ticket=  <p>claim your ticket</p>
@@ -126,24 +175,23 @@ class UserX extends Component {
         <Form.Label>Name of the event</Form.Label>
         <Form.Control type="text" placeholder="Event Name here" onChange={this.handleEvent}/>
         <br />
-        <Form.Label>Date</Form.Label>
-        <Form.Control type="text" placeholder="Data from - to, e.g. 06-07-2020 - 08-07-2020" />
-        <br />
         <Form.Label>Artist/s</Form.Label>
-        <Form.Control type="text" placeholder="Artist, e.g. Rammstein, Billy Talent, Metallica" />
+        <Form.Control type="text" placeholder="Artist, e.g. Rammstein, Billy Talent, Metallica" onChange={this.handleArtist}/>
       </Form.Group>
       <br/>
-      <div onChange={(e)=>{this.setState({nftType:e.target.value})}}>
-      <input type='radio' value='ticket' id='ticket' name='nft'/>
+      <div>
+      <input type='radio' value='ticket' name='nft' checked={this.state.nftType === 'ticket'} onChange = {this.selectedOption}/>
         <label htmlFor='ticket'>Ticket</label>
         <br/>
-        <input type='radio' value='picture' id='picture' name='nft'/>
+        <input type='radio' value='picture' name='nft' checked={this.state.nftType === 'picture'} onChange = {this.selectedOption} />
         <label htmlFor='picture'>Picture</label>
       </div>
       <div>
         <p>Select Date for the event</p>
-        <DatePicker dateFormat="dd/MM/yyyy" selected={this.state.selectedDate} onChange={this.handleDate} />
+        <DatePicker dateFormat="dd/MM/yyyy" selected={this.state.eventdate} onChange={this.handleDate} />
       </div>
+      <br/>
+      <Button size="lg" onClick={this.handlePost} >Submit</Button>
     </div>
     )
   }

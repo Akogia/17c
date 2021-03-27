@@ -2,11 +2,10 @@ import './App.css';
 import React, {Component } from 'react'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import UserX from './UserX';
-import Artist from './Artist';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import UserX from './UserX'
+import Artist from './Artist'
 import api from './api/metadata.js'
-import {uuid} from 'uuidv4'
 
 class App extends Component {
 
@@ -44,7 +43,7 @@ class App extends Component {
   //}
     async loadMetadata(){
       const response = await api.get("/nonfungibletoken")
-      this.setState({metadata:response})
+      this.setState({metadata:response.data})
       console.log(this.state.metadata)
     }
 
@@ -52,7 +51,7 @@ class App extends Component {
     //{response.map(name => <div>{name}</div>)}
     //</div>
 
-    
+
 
 
 
@@ -62,7 +61,7 @@ class App extends Component {
     
     if(this.state.tabulator){
       console.log("hat geklappt")
-      content = <UserX/>
+      content = <UserX metadata={this.state.metadata}/>
     } 
     else {
       content=<Artist/>

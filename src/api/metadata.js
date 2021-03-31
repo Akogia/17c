@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../node_modules/axios';
 
 export default axios.create({
     baseURL:"http://localhost:3006/",

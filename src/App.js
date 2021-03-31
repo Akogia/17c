@@ -1,8 +1,8 @@
-import './App.css';
+import './App.css'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import React, {Component } from 'react'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import UserX from './UserX'
 import Artist from './Artist'
 import api from './api/metadata.js'
@@ -19,6 +19,7 @@ class App extends Component {
     this.state = {
       tabulator: true,
       metadata: null,
+      error: null
     };
   }
 
@@ -42,9 +43,14 @@ class App extends Component {
   //  getMetaData()
   //}
     async loadMetadata(){
-      const response = await api.get("/nonfungibletoken")
-      this.setState({metadata:response.data})
-      console.log(this.state.metadata)
+      try{
+        const response = await api.get("/nonfungibletoken")
+        this.setState({metadata:response.data})
+        console.log(this.state.metadata)
+      }catch(error){
+        console.error(error)
+      }
+
     }
 
     //<div>
@@ -64,7 +70,7 @@ class App extends Component {
       content = <UserX metadata={this.state.metadata}/>
     } 
     else {
-      content=<Artist/>
+      content=<Artist metadata={this.state.metadata}/>
     }
 
 

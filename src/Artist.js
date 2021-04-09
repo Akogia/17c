@@ -6,6 +6,8 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Uuid from 'react-uuid'
 import api from './api/metadata.js'
+import Figure from 'react-bootstrap/Figure'
+import Image from 'react-bootstrap/Image'
 
 
 class Artist extends Component{
@@ -19,7 +21,8 @@ class Artist extends Component{
       artist: [],
       ticket:true,
       video:false,
-      id:''
+      id:'',
+      image:null
     }
   }
 
@@ -93,30 +96,65 @@ async sendMetadata(newMetadata){
     console.log(response)
   }
 
+  clickImage = (e) =>{
+    console.log(e)
+    this.setState({image:e.target.files[0]})
+    console.log(this.state.image)
+  }
+
 
   render() {
+    var realImage = (
+      <img src={this.state.image}
+        width="800"
+        height="450"
+        className = "ticketPhoto"
+        usePlaceholder={true}
+        />
+    )
+
     return (
       <div>
           <br/>
           <Form.Group>
             <Form.Label>Name of the event</Form.Label>
-            <Form.Control type="text" placeholder="Event Name here" onChange={this.handleEvent}/>
+            <Form.Control type="text" placeholder="Event Name here" onChange={this.handleEvent} style={{ width: '60rem'}}/>
             <br />
             <Form.Label>Artist/s</Form.Label>
-            <Form.Control type="text" placeholder="Artist, e.g. Rammstein, Billy Talent, Metallica" onChange={this.handleArtist}/>
+            <Form.Control type="text" placeholder="Artist, e.g. Rammstein, Billy Talent, Metallica" onChange={this.handleArtist} style={{ width: '60rem'}}/>
           </Form.Group>
         <br/>
         <div>
           <input type='radio' value='ticket' name='nft' checked={this.state.nftType === 'ticket'} onChange = {this.selectedOption}/>
           <label htmlFor='ticket'>Ticket</label>
           <br/>
-          <input type='radio' value='picture' name='nft' checked={this.state.nftType === 'picture'} onChange = {this.selectedOption} />
+          <input type='radio' value='picture' name='nft' checked={this.state.nftType === 'picture'} onChange = {this.selectedOption}/>
           <label htmlFor='picture'>Picture</label>
         </div>
         <div>
           <p>Select Date for the event</p>
           <DatePicker dateFormat="dd/MM/yyyy" selected={this.state.eventdate} onChange={this.handleDate} />
         </div>
+        <br/>
+        <Form>
+          <Figure>
+            <Image
+              width={171}
+              height={180}
+              alt='171x180'
+              src="holder.js/171x180"
+              data-src="holder.js/171x180"
+              />
+          </Figure>
+          <img class="ticketPhoto" data-src="holder.js/800x450"/>
+          {realImage}
+          <Form.File 
+            id="custom-file"
+            label="Custom file input"
+            onChange={this.clickImage}
+          />
+        </Form>
+
         <br/>
         <Button size="lg" onClick={this.handlePost} >Submit</Button>
       </div>

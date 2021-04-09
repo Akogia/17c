@@ -8,7 +8,7 @@ class Artist extends Component{
   render() {
     return (
       <div>
-        <Card className="mb-3s" style={{ width: '60rem', margin: 'auto' }} bg='https://www.alexanderkaemmer.de/wp-content/uploads/konzert-foto-buehne-lightshow-festival-fotograf-waldshut-tiengen-2.jpg'>
+        <Card className="mb-3s" style={{ width: '60rem', margin: 'auto' }} >
         <Card.Body>
          <Card.Title>Ticket Name</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">Artists</Card.Subtitle>
